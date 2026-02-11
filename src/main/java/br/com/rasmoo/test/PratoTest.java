@@ -1,6 +1,8 @@
 package br.com.rasmoo.test;
 
+import br.com.rasmoo.daos.PratoDAO;
 import br.com.rasmoo.entities.Prato;
+import br.com.rasmoo.utils.JPAUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,15 +14,16 @@ public class PratoTest {
     static void main() {
         Prato prato = new Prato(null, "Strogonoff", "Arroz, Strogonoff e Batata Palha", true, BigDecimal.valueOf(40.00), LocalDate.now());
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("rasfood");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = JPAUtil.getEntityManagerRasFood();
+
+        PratoDAO pratoDAO = new PratoDAO(em);
+
         em.getTransaction().begin();
 
-        em.persist(prato);
+        pratoDAO.persist(prato);
 
         em.getTransaction().commit();
 
         em.close();
-        emf.close();
     }
 }
