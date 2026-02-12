@@ -17,13 +17,17 @@ public class Prato {
     private BigDecimal preco;
     private LocalDate dataRegistro;
 
-    public Prato(Long id, String nome, String descricao, Boolean disponivel, BigDecimal preco, LocalDate dataRegistro) {
+    @ManyToOne
+    private Categoria categoria;
+
+    public Prato(Long id, String nome, String descricao, Boolean disponivel, BigDecimal preco, LocalDate dataRegistro, Categoria categoria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.disponivel = disponivel;
         this.preco = preco;
         this.dataRegistro = dataRegistro;
+        this.categoria = categoria;
     }
 
     public Prato(){
@@ -77,6 +81,14 @@ public class Prato {
         this.dataRegistro = dataRegistro;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     @Override
     public String toString() {
         return "Prato{" +
@@ -86,6 +98,7 @@ public class Prato {
                 ", disponivel=" + disponivel +
                 ", preco=" + preco +
                 ", dataRegistro=" + dataRegistro +
+                ", categoria=" + categoria +
                 '}';
     }
 }
