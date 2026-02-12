@@ -34,13 +34,16 @@ public class CargaDadosUtils {
         List<Categoria> listaCategoria = categoriaDAO.findAll();
 
         Prato pratoA = new Prato(null, "Strogonoff", "Arroz, Strogonoff e Batata Palha", true, BigDecimal.valueOf(40.00), LocalDate.now(), listaCategoria.get(2));
-        Prato pratoB = new Prato(null, "Churrasco", "Arroz, Hamburguer e Feijão", true, BigDecimal.valueOf(36.00), LocalDate.now(), listaCategoria.get(2));
+        Prato pratoB = new Prato(null, "Churrasco", "Arroz, Hamburguer e Feijão", true, BigDecimal.valueOf(40.00), LocalDate.now(), listaCategoria.get(2));
 
         //Create
         pratoDAO.persist(pratoA);
         pratoDAO.persist(pratoB);
 
         em.clear();
+
+        //FindByName
+        System.out.println(pratoDAO.listPerName("Churrasco com costela"));
 
         //FindById
 //        System.out.println(pratoDAO.findById(1L));
@@ -49,11 +52,14 @@ public class CargaDadosUtils {
 //        pratoDAO.remove(1L);
 
         //Read
-        List<Prato> pratoList = pratoDAO.list();
+//        List<Prato> pratoList = pratoDAO.list();
+//
+//        for(Prato cadaPrato : pratoList){
+//            System.out.println(cadaPrato);
+//        }
 
-        for(Prato cadaPrato : pratoList){
-            System.out.println(cadaPrato);
-        }
+        //List Per Price
+//        System.out.println(pratoDAO.listPerPrice(BigDecimal.valueOf(40.00)));
 
         //Update
 //        pratoB.setDescricao("Arroz, Hamburguer Angus, Feijão e Batata Frita");
