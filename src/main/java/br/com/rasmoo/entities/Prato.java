@@ -3,9 +3,10 @@ package br.com.rasmoo.entities;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "TB_PRATO")
 public class Prato {
 
     @Id
@@ -19,6 +20,9 @@ public class Prato {
 
     @ManyToOne
     private Categoria categoria;
+
+    @ManyToMany(mappedBy = "pratos")
+    private Set<Ordem> ordens = new HashSet<>();
 
     public Prato(Long id, String nome, String descricao, Boolean disponivel, BigDecimal preco, LocalDate dataRegistro, Categoria categoria) {
         this.id = id;

@@ -3,7 +3,6 @@ package br.com.rasmoo.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "TB_CATEGORIA")
 public class Categoria {
 
     @Id

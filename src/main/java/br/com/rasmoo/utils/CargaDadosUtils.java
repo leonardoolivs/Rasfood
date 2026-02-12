@@ -43,7 +43,7 @@ public class CargaDadosUtils {
         em.clear();
 
         //FindByName
-        System.out.println(pratoDAO.listPerName("Churrasco com costela"));
+        System.out.println(pratoDAO.listPerName("Churrasco"));
 
         //FindById
 //        System.out.println(pratoDAO.findById(1L));
