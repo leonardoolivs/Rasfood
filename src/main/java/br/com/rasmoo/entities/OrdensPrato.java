@@ -20,8 +20,7 @@ public class OrdensPrato {
 
     private int quantidade;
 
-    public OrdensPrato(Ordem ordem, Prato prato, BigDecimal valor, int quantidade) {
-        this.ordem = ordem;
+    public OrdensPrato(Prato prato, BigDecimal valor, int quantidade) {
         this.prato = prato;
         this.valor = valor;
         this.quantidade = quantidade;

@@ -18,7 +18,7 @@ public class Ordem {
     @ManyToOne
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "ordem")
+    @OneToMany(mappedBy = "ordem", cascade = CascadeType.ALL)
     private Set<OrdensPrato> ordensPratosList = new HashSet<>();
 
     public Ordem(BigDecimal valorTotal, LocalDate dataCriacao, Cliente cliente) {

@@ -4,10 +4,7 @@ import br.com.rasmoo.daos.CategoriaDAO;
 import br.com.rasmoo.daos.ClienteDAO;
 import br.com.rasmoo.daos.OrdemDAO;
 import br.com.rasmoo.daos.PratoDAO;
-import br.com.rasmoo.entities.Categoria;
-import br.com.rasmoo.entities.Cliente;
-import br.com.rasmoo.entities.Ordem;
-import br.com.rasmoo.entities.Prato;
+import br.com.rasmoo.entities.*;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
@@ -88,10 +85,13 @@ public class CargaDadosUtils {
     public static void cadastrarOrdem(EntityManager em){
         OrdemDAO ordemDAO = new OrdemDAO(em);
         ClienteDAO clienteDAO = new ClienteDAO(em);
+        PratoDAO pratoDAO = new PratoDAO(em);
 
         Cliente cliente = clienteDAO.findById(1L);
 
         Ordem ordemA = new Ordem(BigDecimal.valueOf(50.00), LocalDate.now(), cliente);
+
+        ordemA.addOrdensPrato(new OrdensPrato(pratoDAO.findById(1L), ordemA.getValorTotal(), 2));
 
         ordemDAO.persist(ordemA);
 
