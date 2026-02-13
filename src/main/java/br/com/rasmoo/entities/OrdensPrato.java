@@ -1,7 +1,6 @@
 package br.com.rasmoo.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 public class OrdensPrato {
@@ -16,13 +15,13 @@ public class OrdensPrato {
     @ManyToOne
     private Prato prato;
 
-    private BigDecimal valor;
+    private double valor;
 
     private int quantidade;
 
-    public OrdensPrato(Prato prato, BigDecimal valor, int quantidade) {
+    public OrdensPrato(Prato prato, int quantidade) {
         this.prato = prato;
-        this.valor = valor;
+        this.valor = prato.getPreco();
         this.quantidade = quantidade;
     }
 
@@ -53,11 +52,11 @@ public class OrdensPrato {
         this.prato = prato;
     }
 
-    public BigDecimal getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(BigDecimal valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
@@ -73,7 +72,6 @@ public class OrdensPrato {
     public String toString() {
         return "OrdensPrato{" +
                 "id=" + id +
-                ", ordem=" + ordem +
                 ", prato=" + prato +
                 ", valor=" + valor +
                 ", quantidade=" + quantidade +

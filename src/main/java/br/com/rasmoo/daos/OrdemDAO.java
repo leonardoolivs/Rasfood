@@ -1,10 +1,9 @@
 package br.com.rasmoo.daos;
 
 import br.com.rasmoo.entities.Ordem;
-import org.h2.api.UserToRolesMapper;
+import br.com.rasmoo.vos.PratosVO;
 
 import javax.persistence.EntityManager;
-import java.math.BigDecimal;
 import java.util.List;
 
 public class OrdemDAO {
@@ -33,6 +32,15 @@ public class OrdemDAO {
     public List<Ordem> list() {
         return this.entityManager
                 .createQuery("SELECT p FROM Ordem p", Ordem.class).getResultList();
+    }
+
+    public List<PratosVO> consultarItemMaisVendido(){
+        return this.entityManager
+                .createQuery("SELECT new br.com.rasmoo.vos.PratosVO(p.nome, SUM(op.quantidade)) FROM Ordem o " +
+                        "INNER JOIN OrdensPrato op ON o.id = op.prato.id " +
+                        "INNER JOIN op.prato p " +
+                        "GROUP BY p.nome " +
+                        "ORDER BY SUM(op.quantidade) DESC", PratosVO.class).getResultList();
     }
 
     public void update(Long id, Ordem ordem) {

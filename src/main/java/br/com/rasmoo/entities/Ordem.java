@@ -1,7 +1,6 @@
 package br.com.rasmoo.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +11,7 @@ public class Ordem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private BigDecimal valorTotal;
+    private double valorTotal;
     private LocalDate dataCriacao;
 
     @ManyToOne
@@ -21,8 +20,7 @@ public class Ordem {
     @OneToMany(mappedBy = "ordem", cascade = CascadeType.ALL)
     private Set<OrdensPrato> ordensPratosList = new HashSet<>();
 
-    public Ordem(BigDecimal valorTotal, LocalDate dataCriacao, Cliente cliente) {
-        this.valorTotal = valorTotal;
+    public Ordem(LocalDate dataCriacao, Cliente cliente) {
         this.dataCriacao = dataCriacao;
         this.cliente = cliente;
     }
@@ -33,6 +31,7 @@ public class Ordem {
     public void addOrdensPrato(OrdensPrato ordensPrato){
         ordensPrato.setOrdem(this);
         this.ordensPratosList.add(ordensPrato);
+        this.valorTotal += ordensPrato.getValor() * ordensPrato.getQuantidade();
     }
 
     public Long getId() {
@@ -43,11 +42,11 @@ public class Ordem {
         this.id = id;
     }
 
-    public BigDecimal getValorTotal() {
+    public double getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(BigDecimal valorTotal) {
+    public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
 
@@ -74,6 +73,7 @@ public class Ordem {
                 ", valorTotal=" + valorTotal +
                 ", dataCriacao=" + dataCriacao +
                 ", cliente=" + cliente +
+                ", ordensPratosList=" + ordensPratosList +
                 '}';
     }
 }

@@ -1,6 +1,8 @@
 package br.com.rasmoo.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Cliente {
@@ -9,12 +11,13 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String cep;
     private String cpf;
 
-    public Cliente(String nome, String cep, String cpf) {
+    @OneToMany(mappedBy = "cliente")
+    private Set<Endereco> enderecos = new HashSet<>();
+
+    public Cliente(String nome, String cpf) {
         this.nome = nome;
-        this.cep = cep;
         this.cpf = cpf;
     }
 
@@ -37,14 +40,6 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
     public String getCpf() {
         return cpf;
     }
@@ -53,13 +48,21 @@ public class Cliente {
         this.cpf = cpf;
     }
 
+    public Set<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void addEnderecos(Endereco endereco) {
+        this.enderecos.add(endereco);
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
-                ", cep='" + cep + '\'' +
                 ", cpf='" + cpf + '\'' +
+                ", enderecos=" + enderecos +
                 '}';
     }
 }

@@ -1,9 +1,6 @@
 package br.com.rasmoo.utils;
 
-import br.com.rasmoo.daos.CategoriaDAO;
-import br.com.rasmoo.daos.ClienteDAO;
-import br.com.rasmoo.daos.OrdemDAO;
-import br.com.rasmoo.daos.PratoDAO;
+import br.com.rasmoo.daos.*;
 import br.com.rasmoo.entities.*;
 
 import javax.persistence.EntityManager;
@@ -34,8 +31,8 @@ public class CargaDadosUtils {
 
         List<Categoria> listaCategoria = categoriaDAO.findAll();
 
-        Prato pratoA = new Prato(null, "Strogonoff", "Arroz, Strogonoff e Batata Palha", true, BigDecimal.valueOf(40.00), LocalDate.now(), listaCategoria.get(2));
-        Prato pratoB = new Prato(null, "Churrasco", "Arroz, Hamburguer e Feijão", true, BigDecimal.valueOf(40.00), LocalDate.now(), listaCategoria.get(2));
+        Prato pratoA = new Prato(null, "Strogonoff", "Arroz, Strogonoff e Batata Palha", true, 40.00, LocalDate.now(), listaCategoria.get(2));
+        Prato pratoB = new Prato(null, "Churrasco", "Arroz, Hamburguer e Feijão", true, 35.00, LocalDate.now(), listaCategoria.get(2));
 
         //Create
         pratoDAO.persist(pratoA);
@@ -44,7 +41,7 @@ public class CargaDadosUtils {
         em.clear();
 
         //FindByName
-        System.out.println(pratoDAO.listPerName("Churrasco"));
+//        System.out.println(pratoDAO.listPerName("Churrasco"));
 
         //FindById
 //        System.out.println(pratoDAO.findById(1L));
@@ -70,16 +67,30 @@ public class CargaDadosUtils {
 
     }
 
+    public static void cadastrarEndereco(EntityManager em){
+        EnderecoDAO enderecoDAO = new EnderecoDAO(em);
+
+        Endereco enderecoA = new Endereco("12345678", "SP", "SP", "Rua onde eu moro", "61", "61B");
+
+        enderecoDAO.persist(enderecoA);
+
+        em.flush();
+
+    }
+
     public static void cadastrarCliente(EntityManager em){
         ClienteDAO clienteDAO = new ClienteDAO(em);
+        EnderecoDAO enderecoDAO = new EnderecoDAO(em);
 
-        Cliente clienteA = new Cliente("Leonardo", "012345678", "123456789123");
-        Cliente clienteB = new Cliente("Fernando", "012345678", "123456789123");
+        Endereco endereco = enderecoDAO.findById(1L);
+
+        Cliente clienteA = new Cliente("Leonardo", "12313212312");
+
+        clienteA.addEnderecos(endereco);
 
         clienteDAO.persist(clienteA);
-        clienteDAO.persist(clienteB);
 
-        em.clear();
+        em.flush();
     }
 
     public static void cadastrarOrdem(EntityManager em){
@@ -89,12 +100,16 @@ public class CargaDadosUtils {
 
         Cliente cliente = clienteDAO.findById(1L);
 
-        Ordem ordemA = new Ordem(BigDecimal.valueOf(50.00), LocalDate.now(), cliente);
+        Ordem ordemA = new Ordem(LocalDate.now(), cliente);
+        Ordem ordemB = new Ordem(LocalDate.now(), cliente);
 
-        ordemA.addOrdensPrato(new OrdensPrato(pratoDAO.findById(1L), ordemA.getValorTotal(), 2));
+        ordemA.addOrdensPrato(new OrdensPrato(pratoDAO.findById(1L), 5));
+        ordemB.addOrdensPrato(new OrdensPrato(pratoDAO.findById(2L), 3));
 
         ordemDAO.persist(ordemA);
+        ordemDAO.persist(ordemB);
 
+        System.out.println(ordemDAO.consultarItemMaisVendido());
         em.clear();
     }
 }

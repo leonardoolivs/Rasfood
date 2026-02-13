@@ -1,10 +1,7 @@
 package br.com.rasmoo.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Prato {
@@ -15,13 +12,13 @@ public class Prato {
     private String nome;
     private String descricao;
     private Boolean disponivel;
-    private BigDecimal preco;
+    private double preco;
     private LocalDate dataRegistro;
 
     @ManyToOne
     private Categoria categoria;
 
-    public Prato(Long id, String nome, String descricao, Boolean disponivel, BigDecimal preco, LocalDate dataRegistro, Categoria categoria) {
+    public Prato(Long id, String nome, String descricao, Boolean disponivel, double preco, LocalDate dataRegistro, Categoria categoria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -66,11 +63,11 @@ public class Prato {
         this.disponivel = disponivel;
     }
 
-    public BigDecimal getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(BigDecimal preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 

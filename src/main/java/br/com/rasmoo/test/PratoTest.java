@@ -14,6 +14,7 @@ public class PratoTest {
 
         CargaDadosUtils.cadastrarCategorias(em);
         CargaDadosUtils.cadastrarPratos(em);
+        CargaDadosUtils.cadastrarEndereco(em);
         CargaDadosUtils.cadastrarCliente(em);
         CargaDadosUtils.cadastrarOrdem(em);
 
