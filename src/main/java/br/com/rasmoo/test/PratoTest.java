@@ -14,6 +14,8 @@ public class PratoTest {
 
         CargaDadosUtils.cadastrarCategorias(em);
         CargaDadosUtils.cadastrarPratos(em);
+        CargaDadosUtils.cadastrarCliente(em);
+        CargaDadosUtils.cadastrarOrdem(em);
 
         em.getTransaction().commit();
 

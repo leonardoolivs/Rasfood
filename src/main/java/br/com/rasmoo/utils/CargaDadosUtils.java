@@ -1,8 +1,12 @@
 package br.com.rasmoo.utils;
 
 import br.com.rasmoo.daos.CategoriaDAO;
+import br.com.rasmoo.daos.ClienteDAO;
+import br.com.rasmoo.daos.OrdemDAO;
 import br.com.rasmoo.daos.PratoDAO;
 import br.com.rasmoo.entities.Categoria;
+import br.com.rasmoo.entities.Cliente;
+import br.com.rasmoo.entities.Ordem;
 import br.com.rasmoo.entities.Prato;
 
 import javax.persistence.EntityManager;
@@ -67,5 +71,30 @@ public class CargaDadosUtils {
 //
 //        System.out.println(pratoDAO.findById(2L));
 
+    }
+
+    public static void cadastrarCliente(EntityManager em){
+        ClienteDAO clienteDAO = new ClienteDAO(em);
+
+        Cliente clienteA = new Cliente("Leonardo", "012345678", "123456789123");
+        Cliente clienteB = new Cliente("Fernando", "012345678", "123456789123");
+
+        clienteDAO.persist(clienteA);
+        clienteDAO.persist(clienteB);
+
+        em.clear();
+    }
+
+    public static void cadastrarOrdem(EntityManager em){
+        OrdemDAO ordemDAO = new OrdemDAO(em);
+        ClienteDAO clienteDAO = new ClienteDAO(em);
+
+        Cliente cliente = clienteDAO.findById(1L);
+
+        Ordem ordemA = new Ordem(BigDecimal.valueOf(50.00), LocalDate.now(), cliente);
+
+        ordemDAO.persist(ordemA);
+
+        em.clear();
     }
 }

@@ -21,9 +21,6 @@ public class Prato {
     @ManyToOne
     private Categoria categoria;
 
-    @ManyToMany(mappedBy = "pratos")
-    private Set<Ordem> ordens = new HashSet<>();
-
     public Prato(Long id, String nome, String descricao, Boolean disponivel, BigDecimal preco, LocalDate dataRegistro, Categoria categoria) {
         this.id = id;
         this.nome = nome;

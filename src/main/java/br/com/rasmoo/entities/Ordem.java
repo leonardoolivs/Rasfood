@@ -18,12 +18,8 @@ public class Ordem {
     @ManyToOne
     private Cliente cliente;
 
-    @ManyToMany
-    @JoinTable(
-            name = "ordens_cardapio",
-            joinColumns = @JoinColumn(name = "ordens_id"),
-            inverseJoinColumns = @JoinColumn(name = "pratos_id"))
-    private Set<Prato> pratos = new HashSet<>();
+    @OneToMany(mappedBy = "ordem")
+    private Set<OrdensPrato> ordensPratosList = new HashSet<>();
 
     public Ordem(BigDecimal valorTotal, LocalDate dataCriacao, Cliente cliente) {
         this.valorTotal = valorTotal;
@@ -32,6 +28,11 @@ public class Ordem {
     }
 
     public Ordem(){
+    }
+
+    public void addOrdensPrato(OrdensPrato ordensPrato){
+        ordensPrato.setOrdem(this);
+        this.ordensPratosList.add(ordensPrato);
     }
 
     public Long getId() {
