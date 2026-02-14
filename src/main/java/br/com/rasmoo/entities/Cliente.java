@@ -53,6 +53,7 @@ public class Cliente {
     }
 
     public void addEnderecos(Endereco endereco) {
+        endereco.setCliente(this);
         this.enderecos.add(endereco);
     }
 

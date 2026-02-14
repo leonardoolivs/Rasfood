@@ -71,8 +71,10 @@ public class CargaDadosUtils {
         EnderecoDAO enderecoDAO = new EnderecoDAO(em);
 
         Endereco enderecoA = new Endereco("12345678", "SP", "SP", "Rua onde eu moro", "61", "61B");
+        Endereco enderecoB = new Endereco("12345678", "SP", "SP", "Rua onde eu moro", "61", "61B");
 
         enderecoDAO.persist(enderecoA);
+        enderecoDAO.persist(enderecoB);
 
         em.flush();
 
@@ -82,15 +84,21 @@ public class CargaDadosUtils {
         ClienteDAO clienteDAO = new ClienteDAO(em);
         EnderecoDAO enderecoDAO = new EnderecoDAO(em);
 
-        Endereco endereco = enderecoDAO.findById(1L);
+        Endereco enderecoA = enderecoDAO.findById(1L);
+        Endereco enderecoB = enderecoDAO.findById(2L);
 
-        Cliente clienteA = new Cliente("Leonardo", "12313212312");
+        Cliente clienteA = new Cliente("Leonardo Oliveira", "12313212312");
+        Cliente clienteB = new Cliente("Fernando Oliveira", "23123123123");
 
-        clienteA.addEnderecos(endereco);
+        clienteA.addEnderecos(enderecoA);
+        clienteB.addEnderecos(enderecoB);
 
         clienteDAO.persist(clienteA);
+        clienteDAO.persist(clienteB);
 
         em.flush();
+
+        System.out.println(clienteDAO.listarPorEndereco("SP", "SP", null));
     }
 
     public static void cadastrarOrdem(EntityManager em){
@@ -109,7 +117,6 @@ public class CargaDadosUtils {
         ordemDAO.persist(ordemA);
         ordemDAO.persist(ordemB);
 
-        System.out.println(ordemDAO.consultarItemMaisVendido());
         em.clear();
     }
 }
