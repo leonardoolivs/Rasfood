@@ -90,6 +90,9 @@ public class CargaDadosUtils {
         Cliente clienteA = new Cliente("Leonardo Oliveira", "12313212312");
         Cliente clienteB = new Cliente("Fernando Oliveira", "23123123123");
 
+        Contato contatoA = new Contato("11", "964483584");
+        clienteA.setContato(contatoA);
+
         clienteA.addEnderecos(enderecoA);
         clienteB.addEnderecos(enderecoB);
 

@@ -10,8 +10,13 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
     private String cpf;
+
+    @Embedded
+    private Contato contato;
 
     @OneToMany(mappedBy = "cliente")
     private Set<Endereco> enderecos = new HashSet<>();
@@ -46,6 +51,14 @@ public class Cliente {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
     }
 
     public Set<Endereco> getEnderecos() {
